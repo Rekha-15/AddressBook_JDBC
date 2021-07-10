@@ -8,6 +8,10 @@
 package model;
 
 import java.math.BigDecimal;
+/**
+ * AddressBookData is an POJO class
+ *
+ */
 
 public class AddressBookData {
 
@@ -16,12 +20,26 @@ public class AddressBookData {
 	public String address;
 	public String city;
 	public String state;
-	public BigDecimal zip;
-	public BigDecimal phoneNo;
+	public String zip;
+	public String phoneNo;
 	public String email;
-
-	public AddressBookData(String firstName, String lastName, String address, String city, String state,
-			java.math.BigDecimal zip, java.math.BigDecimal phoneNo, String email) {
+	public String date;
+ /**
+  * Parameterized constructor is created.
+  * 
+ * @param firstName
+ * @param lastName
+ * @param address
+ * @param city
+ * @param state
+ * @param zip
+ * @param phoneNo
+ * @param email
+ * @param date 
+ */
+	
+public AddressBookData(String firstName, String lastName, String address, String city, String state, String zip,
+			String phoneNo, String email, String date) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -31,7 +49,16 @@ public class AddressBookData {
 		this.zip = zip;
 		this.phoneNo = phoneNo;
 		this.email = email;
+		this.date = date;
 
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getFirstName() {
@@ -74,19 +101,19 @@ public class AddressBookData {
 		this.state = state;
 	}
 
-	public BigDecimal getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(BigDecimal zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
-	public BigDecimal getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(BigDecimal phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 
@@ -98,12 +125,17 @@ public class AddressBookData {
 		this.email = email;
 	}
 
+	/**
+	 * This method use to print all the value.
+	 */
+	
 	@Override
 	public String toString() {
 		return "AddressBook [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
 				+ city + ", state=" + state + ", zip=" + zip + ", phoneNo=" + phoneNo + ", email=" + email + "]";
 	}
 
+	//Override toSting method
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -122,6 +154,11 @@ public class AddressBookData {
 			if (other.city != null)
 				return false;
 		} else if (!city.equals(other.city))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
 			return false;
 		if (email == null) {
 			if (other.email != null)

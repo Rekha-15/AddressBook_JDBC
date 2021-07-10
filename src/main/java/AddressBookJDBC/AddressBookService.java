@@ -6,11 +6,14 @@
  ************************************************************************************************/
 package AddressBookJDBC;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-
 import model.AddressBookData;
-
+/**
+ * AddressBookService class is a public type
+ *
+ */
 public class AddressBookService {
 
 	public enum IOService {
@@ -52,21 +55,27 @@ public class AddressBookService {
 		return this.addressBookList.stream().filter(addressBookItem -> addressBookItem.firstName.equals(firstname))
 				.findFirst().orElse(null);
 	}
-	
-	public List<AddressBookData> readAddressBookData(IOService ioService, String start, String end)
-            throws AddressBookException {
-        try {
-            LocalDate startLocalDate = LocalDate.parse(start);
-            LocalDate endLocalDate = LocalDate.parse(end);
-            if (ioService.equals(IOService.DB_IO))
-                return addressBookDBService.readData(startLocalDate, endLocalDate);
-            return this.addressBookList;
-        } catch (AddressBookException e) {
-            throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
-        }
-    }
 
-    public int readAddressBookData(String function, String city) throws AddressBookException {
-        return addressBookDBService.readDataBasedOnCity(function, city);
-    }
+	public List<AddressBookData> readAddressBookData(IOService ioService, String start, String end)
+			throws AddressBookException {
+		try {
+			LocalDate startLocalDate = LocalDate.parse(start);
+			LocalDate endLocalDate = LocalDate.parse(end);
+			if (ioService.equals(IOService.DB_IO))
+				return addressBookDBService.readData(startLocalDate, endLocalDate);
+			return this.addressBookList;
+		} catch (AddressBookException e) {
+			throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
+		}
+	}
+
+	public int readAddressBookData(String function, String city) throws AddressBookException {
+		return addressBookDBService.readDataBasedOnCity(function, city);
+	}
+
+	public void addNewContact(String firstName, String lastName, String address, String city, String state, String zip,
+			String phoneNo, String email, String date) throws AddressBookException {
+		addressBookList.add(addressBookDBService.addNewContact(firstName, lastName, address, city, state, zip, phoneNo,
+				email, date));
+	}
 }
