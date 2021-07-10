@@ -30,4 +30,10 @@ public class AddressBookTest {
         List<AddressBookData> addressBookData = addressBookService.readAddressBookData(AddressBookService.IOService.DB_IO, "2018-02-14", "2020-06-02");
         Assert.assertEquals(3, addressBookData.size());
     }
-}
+	
+	 @Test
+	    public void givenAddressBook_WhenRetrieved_ShouldReturnCountOfCity() throws AddressBookException {
+	        AddressBookService addressBookService = new AddressBookService();
+	        Assert.assertEquals(3, addressBookService.readAddressBookData("count", "Bangalore"));
+	    }
+	}
