@@ -23,13 +23,13 @@ public class AddressBookDBService {
 	}
 
 	private Connection getConnection() throws SQLException {
-		String jdbcURL = "jdbc:mysql://localhost:3306/address_bookjdbc?useSSL=false";
+		String jdbcURL = "jdbc:mysql://localhost:3306/address_book_system?useSSL=false";
 		String username = "root";
 		String password = "rekha15";
 		Connection con;
-		System.out.println("Connecting to database:" + jdbcURL);
+		System.out.println("Connecting to database ");
 		con = DriverManager.getConnection(jdbcURL, username, password);
-		System.out.println("Connection is successful:" + con);
+		System.out.println("Connection is successful ");
 		return con;
 
 	}
@@ -113,4 +113,22 @@ public class AddressBookDBService {
 		System.out.println(addressBookData);
 		return addressBookData;
 	}
+
+	public List<AddressBookData> readData(LocalDate start, LocalDate end) throws AddressBookException {
+		String query = null;
+		if (start != null)
+			query = String.format("select * from addressBook where Date between '%s' and '%s';", start, end);
+		if (start == null)
+			query = "select * from addressBook";
+		List<AddressBookData> addressBookList = new ArrayList<>();
+		try (Connection con = this.getConnection();) {
+			Statement statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			addressBookList = this.getAddressBookDetails(rs);
+		} catch (SQLException e) {
+			throw new AddressBookException(e.getMessage(), AddressBookException.ExceptionType.DATABASE_EXCEPTION);
+		}
+		return addressBookList;
+	}
+
 }
