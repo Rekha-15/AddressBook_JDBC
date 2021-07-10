@@ -10,10 +10,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import model.AddressBookData;
-/**
- * AddressBookService class is a public type
- *
- */
+
 public class AddressBookService {
 
 	public enum IOService {
